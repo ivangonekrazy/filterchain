@@ -1,0 +1,19 @@
+{
+    "processor_pipeline": [
+        {
+          "StdinInput": null
+        },
+        {
+          "StripNewLine": null
+        },
+        {
+          "DecayingDedupFilter": {
+            "ttl_seconds": "5",
+            "match": "^(echo)"
+          }
+        },
+        {
+          "StdoutOutput": null 
+        }
+    ]
+}

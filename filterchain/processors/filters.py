@@ -40,11 +40,19 @@ class RedactFilter(Processor):
 
     def __init__(self, config):
         super(RedactFilter, self).__init__(config)
+        self.redaction_char = self.config.get('redaction_char', '#')
 
         try:
             self.matcher = re.compile(self.config.get('match'), re.IGNORECASE)
         except sre_constants.error:
             raise ConfigurationError('Malformed regex for {} matcher.'.format(self.__class__))
+
+    def _replacer(self, match_obj):
+
+        return len(match_obj.group(0)) * self.redaction_char
+
+    def run(self, line):
+        return self.matcher.sub(self._replacer, line)
 
 
 class RemoveFilter(Processor):

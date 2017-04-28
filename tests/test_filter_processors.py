@@ -57,15 +57,14 @@ class TestFilters(unittest.TestCase):
     def test_redact_filter(self):
         config = {
             'match': '(replace_me)',
-            'replacer_character': '@'
+            'redaction_char': '@'
         }
 
         redact_filter = filterchain.processors.filters.RedactFilter(config)
 
         self.assertEquals(
             redact_filter.run('Hello replace_me'),
-            'Hello @@@@@@@@@@',
-            'Matching groups should be replace with the replacer character.'
+            'Hello @@@@@@@@@@'
         )
 
 

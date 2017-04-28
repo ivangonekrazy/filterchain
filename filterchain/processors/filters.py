@@ -84,7 +84,7 @@ class TopNFilter(Processor):
     def run(self, line):
         self.counter[line] += 1
 
-        if line in dict(self.counter.most_common(self.top_n)).keys():
+        if line in [l for l,_c in self.counter.most_common(self.top_n)]:
             return None
 
         return line
